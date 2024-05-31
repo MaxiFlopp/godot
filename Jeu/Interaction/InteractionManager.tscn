@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://py04yxtmseqj"]
+
+[ext_resource type="Script" path="res://Interaction/InteractionManager.gd" id="1_4todx"]
+
+[sub_resource type="FontFile" id="FontFile_lv7d8"]
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+
+[node name="InteractionManager" type="Node2D"]
+script = ExtResource("1_4todx")
+
+[node name="Label" type="Label" parent="."]
+z_index = 20
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -75.5
+offset_right = 75.5
+offset_bottom = 26.0
+grow_horizontal = 2
+theme_override_fonts/font = SubResource("FontFile_lv7d8")
+text = "Press [E] to interact"
+horizontal_alignment = 1
+vertical_alignment = 1
