@@ -1,5 +1,9 @@
 extends Node
 
+class_name GameManager
+
+
+
 #Création du debug
 @onready var debug = $Player/Camera2D/Labels/Debug
 @onready var player = $Player
@@ -17,11 +21,13 @@ var rngbis = RandomNumberGenerator.new()
 var rng3 = RandomNumberGenerator.new()
 var MidDoorE5 = 0
 var MidDoorD6 = 0
+var OnPan = 0
+
 
 #Fonction qui affiche le debug
-func _input(event):
-	if event is InputEventKey and event.is_pressed():
-		debug.text = event.as_text()
+#func _input1(event):
+	#if event is InputEventKey and event.is_pressed():
+		#debug.text = event.as_text()
 
 #RRRRRRRRRRRRRRRREEEEEEEEEEEEEEAAAAAAAAAAAAAAAAAAADDDDDDDDDDDDDDDDDDDDDYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
 func _ready():
@@ -33,9 +39,10 @@ func _ready():
 	$Player/Camera2D/Labels/GurlChat.visible = false
 	$SprayTag.visible = false
 	$Fissure.visible = false
+	$Player/Camera2D/Labels/PanChat.visible = false
 	var playerspeed = player.speed
 	
-	player.speed = 2000.0
+	player.speed = 900.0
 	
 	#Y'a t'il une anomalie
 	rng.randomize() # Seed le générateur de nombres aléatoires
@@ -71,6 +78,13 @@ func _process(delta):
 	if Input.is_action_just_pressed("interact") and OnGurl == 1:
 		$Player/Camera2D/Labels/GurlChat.visible = true
 		$Player/Camera2D/Labels/TalkButton.visible = false
+		
+		
+	#interaction avec panneau
+	if Input.is_action_just_pressed("interact") and OnPan == 1:
+		$Player/Camera2D/Labels/PanChat.visible = true
+		$Player/Camera2D/Labels/InteractButton.visible = false
+		pass
 		
 		
 	#Condition pour entrer dans la porte de gauche
@@ -111,9 +125,13 @@ func _process(delta):
 		$Bench.play("default")
 		$BigPaint.play("default")
 		$LittleDoor.scale = Vector2(4, 4)
-		player.speed = 2000.0
+		player.speed = 900.0
+		#player.position = Vector2(291, 832)
+		TransitionScreen.transition()
+		await TransitionScreen.on_transition_finished
 		if Anomaly == true:
 			CurrentLvl +=1
+			player.position = Vector2(291, 832)
 			print(CurrentLvl)
 			#Y'a t'il une anomalie
 			rng.randomize() # Seed le générateur de nombres aléatoires
@@ -126,6 +144,7 @@ func _process(delta):
 				Anomaly = false
 		else:
 			CurrentLvl = 0
+			player.position = Vector2(291, 832)
 			print(CurrentLvl)
 			#Y'a t'il une anomalie
 			rng.randomize() # Seed le générateur de nombres aléatoires
@@ -177,9 +196,13 @@ func _process(delta):
 		$Bench.play("default")
 		$BigPaint.play("default")
 		$LittleDoor.scale = Vector2(4, 4)
-		player.speed = 2000.0
+		player.speed = 900.0
+		#player.position = Vector2(291, 832)
+		TransitionScreen.transition()
+		await TransitionScreen.on_transition_finished
 		if Anomaly == false:
 			CurrentLvl += 1
+			player.position = Vector2(291, 832)
 			print(CurrentLvl)
 			#Y'a t'il une anomalie
 			rng.randomize() # Seed le générateur de nombres aléatoires
@@ -192,6 +215,7 @@ func _process(delta):
 				Anomaly = false
 		else:
 			CurrentLvl = 0
+			player.position = Vector2(291, 832)
 			print(CurrentLvl)
 			#Y'a t'il une anomalie
 			rng.randomize() # Seed le générateur de nombres aléatoires
@@ -1861,3 +1885,23 @@ func anomaly_choice():
 	
 	
 	
+
+
+func _on_area_pan_2d_body_entered(body):
+	$Player/Camera2D/Labels/ColorRect.visible = true
+	$Player/Camera2D/Labels/InteractButton.visible = true
+	OnPan = 1
+	pass # Replace with function body.
+
+
+func _on_area_pan_2d_body_exited(body):
+	$Player/Camera2D/Labels/ColorRect.visible = false
+	$Player/Camera2D/Labels/InteractButton.visible = false
+	$Player/Camera2D/Labels/PanChat.visible = false
+	OnPan = 0
+	pass # Replace with function body.
+
+
+		
+
+

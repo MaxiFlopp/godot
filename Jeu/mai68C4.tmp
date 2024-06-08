@@ -1,7 +1,6 @@
-[gd_scene load_steps=283 format=3 uid="uid://btsk52qmgdccs"]
+[gd_scene load_steps=282 format=3 uid="uid://btsk52qmgdccs"]
 
 [ext_resource type="Script" path="res://game_manager.gd" id="1_g2co8"]
-[ext_resource type="PackedScene" uid="uid://bxsyyj21ruxrk" path="res://UI/pause_menu.tscn" id="2_chsop"]
 [ext_resource type="Texture2D" uid="uid://uekp8sgridmp" path="res://ExAssets/Terrain/Terrain (16x16).png" id="2_dn6li"]
 [ext_resource type="PackedScene" uid="uid://fag884r5rkjw" path="res://scenes/transition_screen.tscn" id="2_eqj4c"]
 [ext_resource type="Texture2D" uid="uid://bfkx66lwv6u18" path="res://MyAssets/Background/WallsMusee.png" id="3_0h5c1"]
@@ -2536,11 +2535,8 @@ animations = [{
 }]
 
 [node name="GameManager" type="Node"]
+process_mode = 3
 script = ExtResource("1_g2co8")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="pause_menu" parent="CanvasLayer" instance=ExtResource("2_chsop")]
 
 [node name="transition_screen" parent="." instance=ExtResource("2_eqj4c")]
 
@@ -2718,6 +2714,7 @@ texture_filter = 1
 position = Vector2(2560, 704)
 scale = Vector2(8, 8)
 sprite_frames = SubResource("SpriteFrames_q87ch")
+animation = &"high"
 autoplay = "default"
 
 [node name="Statue2" type="AnimatedSprite2D" parent="."]
@@ -2725,6 +2722,7 @@ texture_filter = 1
 position = Vector2(3840, 704)
 scale = Vector2(8, 8)
 sprite_frames = SubResource("SpriteFrames_qim5y")
+animation = &"high"
 autoplay = "default"
 
 [node name="CurrentLvl" type="AnimatedSprite2D" parent="."]

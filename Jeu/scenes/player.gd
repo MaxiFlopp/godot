@@ -1,39 +1,45 @@
 extends CharacterBody2D
 
-
-var speed = 2000.0
-const JUMP_VELOCITY = -700.0
+var speed = 500.0
+var going_left = false
 @onready var sprite_2d = $Sprite2D
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+func _process(delta):
+	if Input.is_action_pressed("run"):
+		speed = 1300.0
+	else:
+		speed = 900.0
+	pass
 
 func _physics_process(delta):
-	#Animations
-	if (velocity.x > 1 || velocity.x < -1):
-		sprite_2d.animation = "running"
-	else:
-		sprite_2d.animation = "idle"
-	
-	# Add the gravity.
-	if not is_on_floor():
-		velocity.y += gravity * delta
-		sprite_2d.animation = "jumping"
-
-	# Handle Jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
+	# Déterminer la direction du mouvement
 	var direction = Input.get_axis("left", "right")
-	if direction:
+
+	# Si le personnage se déplace, mettre à jour l'animation et la direction
+	if direction != 0:
 		velocity.x = direction * speed
+		sprite_2d.animation = "running"
+		if direction < 0:
+			sprite_2d.flip_h = true
+			going_left = true
+		else:
+			sprite_2d.flip_h = false
+			going_left = false
 	else:
-		velocity.x = move_toward(velocity.x, 0, 50)
+		velocity.x = move_toward(velocity.x, 0, 200)
+		sprite_2d.animation = "idle"
+		# Conserver la direction quand en idle
+		sprite_2d.flip_h = going_left
+
+	# Appliquer la gravité si nécessaire
+	#if not is_on_floor():
+	#	velocity.y += gravity * delta
+
+	# Gérer le saut
+	#if Input.is_action_just_pressed("jump") and is_on_floor():
+	#	velocity.y = JUMP_VELOCITY
 
 	move_and_slide()
-	
-	var isLeft = velocity.x < 0
-	sprite_2d.flip_h = isLeft
+		

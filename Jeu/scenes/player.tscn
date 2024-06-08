@@ -154,7 +154,7 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4reix"]
 radius = 22.0769
-height = 89.7692
+height = 89.0
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 scale = Vector2(13, 13)
@@ -163,10 +163,8 @@ script = ExtResource("1_wgo2l")
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_ctoy0")
-animation = &"running"
+animation = &"idle"
 autoplay = "idle"
-frame = 8
-frame_progress = 0.651906
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3.5)
